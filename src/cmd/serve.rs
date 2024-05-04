@@ -558,9 +558,10 @@ pub fn serve(
             format!("-> Sass file changed {}", path.display())
         };
         console::info(&msg);
+        let compress = site.config.compress_sass_output;
         rebuild_done_handling(
             &broadcaster,
-            compile_sass(&site.base_path, &site.output_path),
+            compile_sass(&site.base_path, &site.output_path, compress),
             &partial_path.to_string_lossy(),
         );
     };

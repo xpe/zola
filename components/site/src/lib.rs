@@ -719,17 +719,18 @@ impl Site {
         }
         start = log_time(start, "Cleaned folder");
 
+        let compress = self.config.compress_sass_output;
         // Generate/move all assets before markdown any content
         if let Some(ref theme) = self.config.theme {
             let theme_path = self.base_path.join("themes").join(theme);
             if theme_path.join("sass").exists() {
-                sass::compile_sass(&theme_path, &self.output_path)?;
+                sass::compile_sass(&theme_path, &self.output_path, compress)?;
                 start = log_time(start, "Compiled theme Sass");
             }
         }
 
         if self.config.compile_sass {
-            sass::compile_sass(&self.base_path, &self.output_path)?;
+            sass::compile_sass(&self.base_path, &self.output_path, compress)?;
             start = log_time(start, "Compiled own Sass");
         }
 

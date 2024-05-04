@@ -75,6 +75,8 @@ pub struct Config {
 
     /// Whether to compile the `sass` directory and output the css files into the static folder
     pub compile_sass: bool,
+    /// When compiling Sass, whether to compress css output.
+    pub compress_sass_output: bool,
     /// Whether to minify the html output
     pub minify_html: bool,
     /// Whether to build the search index for the content
@@ -395,6 +397,7 @@ impl Default for Config {
             taxonomies: Vec::new(),
             author: None,
             compile_sass: false,
+            compress_sass_output: true,
             minify_html: false,
             mode: Mode::Build,
             build_search_index: false,

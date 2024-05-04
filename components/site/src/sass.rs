@@ -9,7 +9,7 @@ use crate::anyhow;
 use errors::{bail, Result};
 use utils::fs::{create_file, ensure_directory_exists};
 
-pub fn compile_sass(base_path: &Path, output_path: &Path) -> Result<()> {
+pub fn compile_sass(base_path: &Path, output_path: &Path, compress: bool) -> Result<()> {
     ensure_directory_exists(output_path)?;
 
     let sass_path = {
@@ -18,7 +18,8 @@ pub fn compile_sass(base_path: &Path, output_path: &Path) -> Result<()> {
         sass_path
     };
 
-    let options = Options::default().style(OutputStyle::Compressed);
+    let style = if compress { OutputStyle::Compressed } else { OutputStyle::Expanded };
+    let options = Options::default().style(style);
     let files = get_non_partial_scss(&sass_path);
     let mut compiled_paths = Vec::new();
 
